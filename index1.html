@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>HEARABLEARS.com</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+/* Style the header */
+.header {
+  padding: 80px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+}
+
+/* Increase the font size of the h1 element */
+.header h1 {
+  font-size: 40px;
+}
+
+
+
+/* Column container */
+.row {  
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  flex: 30%;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+/* Main column */
+.main {   
+  flex: 70%;
+  background-color: white;
+  padding: 20px;
+}
+
+/* Fake image, just for this example */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 1px;
+  border-radius: 3%;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>HEARABLEARS.com</h1>
+  <p>PHONE CALL FOR HEARING IMPAIRED</p>
+</div>
+
+
+<div class="row">
+  <div class="side">
+    <h2>About Site</h2>
+    <h5>TUTORIAL</h5>
+    <div class="fakeimg" style="height:200px;">Step 1: Make a phone call to the number displayed on the screen.</p>
+    <p>Step2: Wait for few seconds for the phone to connect to the server</p><p>Step3: Once call gets Initiated display screen confirms the connection </p><p>Step4: Then start Talking to see the LIVE TRANSCRIPTION on the display</p><p></div>
+
+    <h3>TOOLS WE USED</h3>
+    <p>Lorem ipsum dolor sit ame.</p>
+    <div class="fakeimg" style="height:60px;padding: 20%;">TWILIO</div><br>
+    <div class="fakeimg" style="height:60px;padding: 20%;">ASSEMBLY AI</div><br>
+    <div class="fakeimg" style="height:60px;padding: 20%;">NGROK</div>
+  </div>
+  <div class="main">
+    <h1>Live Transcription Here......</h1>
+    <h3>
+      Make Phone call to Number Displayed below to have Live Transcription.
+    </h3>
+    <h3>PHONE NO:+1 302-240-1322</h3>
+    <p id="transcription-container"></p>
+    <script>
+      document.addEventListener("DOMContentLoaded", event => {
+        webSocket = new WebSocket("ws://localhost:8080");
+        webSocket.onmessage = function(msg) {
+          const data = JSON.parse(msg.data);
+          if (data.event === "interim-transcription") {
+            document.getElementById("transcription-container").innerHTML =
+              data.text;
+          }
+        };
+      });
+    </script>
+</div>
+
+</body>
+</html>

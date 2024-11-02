@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang=" en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+<title>
+    Hearing Impaired Assistent
+</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body><div class="title">
+    <h1>Hearing Impaired Assistent</h1></div><center><br><br>
+    <div class="box1">
+    <h2>Make Phone call to Number Displayed below to have Live Transcription.<br>
+        PHONE NO:+1 302-240-1322</h2></center>
+    </div>
+    <div class="box">
+    <div class="form">
+        <h2>Transcribe Goes Here</h2>
+        <script>
+            document.addEventListener("DOMContentLoaded", event => {
+              webSocket = new WebSocket("ws://localhost:8080");
+              webSocket.onmessage = function(msg) {
+                const data = JSON.parse(msg.data);
+                if (data.event === "interim-transcription") {
+                  document.getElementById("transcription-container").innerHTML =
+                    data.text;
+                }
+              };
+            });
+          </script>
+    </div>
+        </div>
+</body>
+</html>
